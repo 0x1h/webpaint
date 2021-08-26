@@ -1,13 +1,7 @@
-const rangeInput = document.querySelector(
-  ".range-input input"
-) as HTMLInputElement;
-const rangeValue = document.querySelector(
-  ".range-input .value div"
-) as HTMLElement;
-
+const rangeInput = document.querySelector(".range-input input") as HTMLInputElement;
+const rangeValue = document.querySelector(".range-input .value div") as HTMLDivElement;
 
 const mosueCursor = document.querySelector(".cursor") as HTMLDivElement;
-
 interface userSettingsInterface<T> {
   color: string;
   thick: T;
@@ -17,7 +11,7 @@ const userSettings: userSettingsInterface<number> = {
   thick: 2,
 };
 
-document.addEventListener("mousemove", (e) => {
+document.addEventListener("mousemove", (e: MouseEvent) => {
   const x: number = e.clientX;
   const y: number = e.clientY;
 
@@ -47,21 +41,7 @@ rangeInput.addEventListener("input", () => {
 let cStep: number = -1;
 let cPushArray: string[] = new Array();
 
-const colors: string[] = [
-  "#FF2929",
-  "#F8FF29",
-  "#29FF54",
-  "#6129FF",
-  "#FF2994",
-  "#29FFF8",
-  "#FF9900",
-  "#8B4513",
-  "#670192",
-  "#3BFF86",
-  "#FF77A4",
-  "#206D67",
-  "#000",
-];
+const colors: string[] = ["#FF2929","#F8FF29","#29FF54","#6129FF","#FF2994","#29FFF8","#FF9900","#8B4513","#670192","#3BFF86","#FF77A4","#206D67","#000",];
 
 const eachColor = document.querySelectorAll<HTMLSpanElement>(".color");
 
@@ -71,19 +51,30 @@ eachColor.forEach((items, i) => {
 
 const eraser = document.querySelector(".eraser") as HTMLButtonElement;
 
+
 eraser.addEventListener("click", () => {
   userSettings.color = "#FFF";
 });
 
+
 function Painting(this: any) {
   this.declareColor = () => {
+
     eachColor.forEach((element) => {
+
       element.addEventListener("click", () => {
+        for (let i = 0; i < eachColor.length; i++) {
+          eachColor[i].classList.remove("active")
+        }
+
+        element.classList.add("active")
         userSettings.color = element.style.background;
       });
+
     });
+
   };
-  this.declareThick = function () {
+  this.declareThick = () => {
     range.addEventListener("input", () => {
       userSettings.thick = Number(range.value);
     });

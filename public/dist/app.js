@@ -28,21 +28,7 @@ rangeInput.addEventListener("input", () => {
 });
 let cStep = -1;
 let cPushArray = new Array();
-const colors = [
-    "#FF2929",
-    "#F8FF29",
-    "#29FF54",
-    "#6129FF",
-    "#FF2994",
-    "#29FFF8",
-    "#FF9900",
-    "#8B4513",
-    "#670192",
-    "#3BFF86",
-    "#FF77A4",
-    "#206D67",
-    "#000",
-];
+const colors = ["#FF2929", "#F8FF29", "#29FF54", "#6129FF", "#FF2994", "#29FFF8", "#FF9900", "#8B4513", "#670192", "#3BFF86", "#FF77A4", "#206D67", "#000",];
 const eachColor = document.querySelectorAll(".color");
 eachColor.forEach((items, i) => {
     items.style.background = colors[i];
@@ -55,11 +41,15 @@ function Painting() {
     this.declareColor = () => {
         eachColor.forEach((element) => {
             element.addEventListener("click", () => {
+                for (let i = 0; i < eachColor.length; i++) {
+                    eachColor[i].classList.remove("active");
+                }
+                element.classList.add("active");
                 userSettings.color = element.style.background;
             });
         });
     };
-    this.declareThick = function () {
+    this.declareThick = () => {
         range.addEventListener("input", () => {
             userSettings.thick = Number(range.value);
         });
