@@ -1,0 +1,283 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  overflow: hidden;
+}
+
+canvas {
+  border: 2px solid #000;
+  cursor: none;
+}
+
+.menu {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.menu .container {
+  width: 500px;
+  height: 400px;
+  background: #2c2f33;
+  border-radius: 10px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 300px 40px;
+      grid-template-rows: 1fr 300px 40px;
+}
+
+.menu .container .okay {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  bottom: 0;
+  right: 0;
+  border-radius: 0 0 10px 10px;
+  border: none;
+  outline: none;
+  color: #FFF;
+  background: #5cb85c;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu .container .okay:active {
+  background: #4b8f4b;
+}
+
+.menu .container p {
+  color: #fff;
+  text-align: center;
+}
+
+.menu .container .alert {
+  padding: 0 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.menu .container .title {
+  width: 100%;
+  height: 50px;
+  background: #23272a;
+  border-radius: 10px 10px 0 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.menu .container .title h3 {
+  color: #fff;
+}
+
+.draw-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  background: #313131;
+  bottom: 0;
+}
+
+.color-panel {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 300px;
+      grid-template-columns: 1fr 300px;
+  border-right: 2px solid #fff;
+}
+
+.color-panel .color-container {
+  width: 100%;
+  padding: 5px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[7];
+      grid-template-columns: repeat(7, 1fr);
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+  place-items: center;
+  -webkit-column-gap: 1px;
+          column-gap: 1px;
+  row-gap: 5px;
+}
+
+.color-panel .color-container .color {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: red;
+  cursor: pointer;
+}
+
+.color-panel .color-container .color.active {
+  border: 2px solid #34eb58;
+}
+
+.color-panel .manage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 80px;
+}
+
+.color-panel .manage button {
+  height: 50px;
+  width: 50px;
+  background: #616161;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.color-panel .manage button i {
+  color: #fff;
+}
+
+.color-panel .manage button:active {
+  background: #3d3d3d;
+}
+
+.brush {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  -ms-grid-columns: 100px 1fr;
+      grid-template-columns: 100px 1fr;
+}
+
+.brush .brush-icon {
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.brush .brush-icon i {
+  color: #4471ef;
+}
+
+.range-container {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+}
+
+.range-container .range-input {
+  position: relative;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: #eee;
+  padding: 10px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 10px;
+}
+
+.range-container .range-input input {
+  -webkit-appearance: none;
+  width: 500px;
+  height: 2px;
+  background: #4471ef;
+  border: none;
+  outline: none;
+}
+
+.range-container .range-input input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #eee;
+  border: 2px solid #4471ef;
+  border-radius: 50%;
+}
+
+.range-container .range-input input::-webkit-slider-thumb:hover {
+  background: #4471ef;
+}
+
+.range-container .range-input .value {
+  color: #4471ef;
+  text-align: center;
+  font-weight: 600;
+  line-height: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin-left: 10px;
+}
+
+.range-container .range-input .value div {
+  -webkit-transition: all 300ms ease-in-out;
+  transition: all 300ms ease-in-out;
+}
+
+.cursor {
+  position: absolute;
+  z-index: 1000;
+  border: .5px solid black;
+  -webkit-transition: 0.0008s;
+  transition: 0.0008s;
+  border-radius: 50%;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.draw-container:hover ~ .cursor {
+  display: none;
+}
+/*# sourceMappingURL=style.css.map */

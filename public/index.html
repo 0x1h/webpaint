@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/v4-shims.css"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/style.css" />
+    <link rel="shortcut icon" href="../assets/logo.png" />
+    <title>Paint Clone</title>
+  </head>
+  <body>
+    <!-- C a n v a s -->
+    <canvas></canvas>
+    <!-- control panel -->
+    <div class="draw-container">
+      <div class="color-panel">
+        <div class="color-container">
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+          <span class="color"></span>
+        </div>
+
+        <div class="manage">
+          <button type="button" class="clear">
+            <i class="far fa-trash-alt fa-2x"></i>
+          </button>
+          <button type="button" class="eraser">
+            <i class="fas fa-eraser fa-2x"></i>
+          </button>
+        </div>
+      </div>
+      <div class="brush">
+        <div class="brush-icon">
+          <i class="fas fa-paint-brush fa-lg"></i>
+        </div>
+        <div class="range-container">
+          <div class="range-input">
+            <input type="range" min="0" max="100" value="0" step="1" />
+            <div class="value">
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cursor"></div>
+  </body>
+  <script src="./dist/app.js"></script>
+</html>
