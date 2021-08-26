@@ -10,7 +10,7 @@ body {
 }
 canvas {
   border: 2px solid #000;
-  cursor: cell
+  cursor: crosshair
 }
 .menu {
   position: absolute;
@@ -188,7 +188,8 @@ $rangeColor: #4471ef;
 .cursor{
     position: absolute;
     z-index: 1000;
-    border: .5px solid black;
+    border: 1px solid black;
+    background: transparent;
     transition: 0.0008s;
     border-radius: 50%;
     pointer-events: none;

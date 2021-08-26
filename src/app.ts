@@ -18,9 +18,6 @@ document.addEventListener("mousemove", (e: MouseEvent) => {
   mosueCursor.setAttribute("style", `left: ${x}px; top: ${y}px`);
   mosueCursor.style.width = `${userSettings.thick}px`;
   mosueCursor.style.height = `${userSettings.thick}px`;
-
-  mosueCursor.style.borderColor = `2px solid black`;
-  mosueCursor.style.background = `${userSettings.color}`;
 });
 
 const start: number = parseFloat(rangeInput.min);

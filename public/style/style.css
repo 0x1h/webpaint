@@ -13,7 +13,7 @@ body {
 
 canvas {
   border: 2px solid #000;
-  cursor: cell;
+  cursor: crosshair;
 }
 
 .menu {
@@ -268,7 +268,8 @@ canvas {
 .cursor {
   position: absolute;
   z-index: 1000;
-  border: .5px solid black;
+  border: 1px solid black;
+  background: transparent;
   -webkit-transition: 0.0008s;
   transition: 0.0008s;
   border-radius: 50%;
