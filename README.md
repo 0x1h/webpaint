@@ -2,15 +2,15 @@
 
 ## UPDATE
 
-###  Added Redo and Undo
+###  * Added Redo and Undo
 
 Undo with - `Z`
 
 Redo with - `X`
 
-### Added Cursor 
+### * Added Cursor 
 
-### Rewritten from Javascript to Typescript
+### * Rewritten from Javascript to Typescript
 
 ## How to use
 
