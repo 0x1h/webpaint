@@ -10,7 +10,7 @@ Redo with - `X`
 
 ### • Added Cursor 
 
-### • Rewritten from Javascript to Typescript
+### • Rewritten from JavaScript to TypeScript
 
 ## How to use
 
