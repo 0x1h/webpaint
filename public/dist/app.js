@@ -10,16 +10,19 @@ const palateColors = document.querySelectorAll(".choose-color");
 const createColorBtn = document.querySelector(".createColor-btn");
 const openSettingOne = document.querySelector(".color-pallete-container");
 const paleteName = document.querySelector(".input-name");
+const currPalettes = document.querySelector(".user-data-palettes");
+const paletteBtn = document.querySelector(".user-paletes");
+const scrollPalette = document.querySelector(".scroll-palettes");
 let chosenColor = 0;
 window.addEventListener("load", () => {
-    const storagePaletes = JSON.parse(localStorage.getItem("color-paletes"));
-    const storageProjects = JSON.parse(localStorage.getItem("user-projects"));
-    if (typeof storagePaletes === null) {
+    if (localStorage.getItem("color-palete") === null) {
         localStorage.setItem("color-palete", "[]");
     }
-    else if (typeof storageProjects === null) {
+    else if (localStorage.getItem("user-projects") === null) {
         localStorage.setItem("user-projects", "[]");
     }
+    else
+        return;
 });
 for (let i = 0; i < palateColors.length; i++) {
     palateColors[i].addEventListener("click", () => {
@@ -30,6 +33,36 @@ for (let i = 0; i < palateColors.length; i++) {
         chosenColor = i;
     });
 }
+paletteBtn.addEventListener("click", () => {
+    currPalettes.classList.toggle("hidden");
+    const currPalettesStorage = JSON.parse(localStorage.getItem("color-palete"));
+    scrollPalette.innerHTML = "";
+    for (let i = 0; i < currPalettesStorage.length; i++) {
+        const userPalette = document.createElement("div");
+        const Ptext = document.createElement("div");
+        const user_colors = document.createElement("div");
+        userPalette.className = "user-palette";
+        user_colors.className = "user-colors";
+        Ptext.className = "Ptext";
+        Ptext.innerHTML = currPalettesStorage[i].name;
+        userPalette.appendChild(Ptext);
+        currPalettesStorage[i].color_palete.forEach((color) => {
+            const each_color = `<span class="colors" style="background: ${color}"></span>`;
+            const colorNode = document
+                .createRange()
+                .createContextualFragment(each_color);
+            user_colors.appendChild(colorNode);
+        });
+        userPalette.appendChild(user_colors);
+        userPalette.addEventListener("click", () => {
+            const chosenColorForUser = currPalettesStorage[i].color_palete;
+            eachColor.forEach((items, c) => {
+                items.style.background = chosenColorForUser[c];
+            });
+        });
+        scrollPalette.appendChild(userPalette);
+    }
+});
 colorChooser.addEventListener("input", () => {
     palateColors[chosenColor].style.background = colorChooser.value;
 });
@@ -39,7 +72,7 @@ createColorBtn.addEventListener("click", () => {
 palleteCancel.addEventListener("click", () => {
     openSettingOne.classList.toggle("hidden");
 });
-palleteSave.addEventListener('click', () => {
+palleteSave.addEventListener("click", () => {
     let accept = false;
     for (let i = 0; i < palateColors.length; i++) {
         if (!palateColors[i].style.background) {
@@ -57,13 +90,14 @@ palleteSave.addEventListener('click', () => {
         const oldColors = JSON.parse(localStorage.getItem("color-palete"));
         const newOnes = {
             name: paleteName.value,
-            color_palete: []
+            color_palete: [],
         };
         for (let i = 0; i < palateColors.length; i++) {
             newOnes.color_palete.push(palateColors[i].style.background);
         }
-        const combine = [...oldColors, newOnes];
+        let combine = [...oldColors, newOnes];
         localStorage.setItem("color-palete", JSON.stringify(combine));
+        openSettingOne.classList.toggle("hidden");
     }
 });
 hambugerMenu.addEventListener("click", () => {
@@ -95,7 +129,21 @@ rangeInput.addEventListener("input", () => {
 });
 let cStep = -1;
 let cPushArray = new Array();
-const colors = ["#FF2929", "#F8FF29", "#29FF54", "#6129FF", "#FF2994", "#29FFF8", "#FF9900", "#8B4513", "#670192", "#3BFF86", "#FF77A4", "#206D67", "#000",];
+const colors = [
+    "#FF2929",
+    "#F8FF29",
+    "#29FF54",
+    "#6129FF",
+    "#FF2994",
+    "#29FFF8",
+    "#FF9900",
+    "#8B4513",
+    "#670192",
+    "#3BFF86",
+    "#FF77A4",
+    "#206D67",
+    "#000",
+];
 const eachColor = document.querySelectorAll(".color");
 eachColor.forEach((items, i) => {
     items.style.background = colors[i];
@@ -154,7 +202,7 @@ const endPosition = (e) => {
     ctx.beginPath();
     cPush();
 };
-const updateSettings = new Painting;
+const updateSettings = new Painting();
 updateSettings.declareColor();
 updateSettings.declareThick();
 const draw = (e) => {

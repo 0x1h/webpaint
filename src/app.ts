@@ -1,20 +1,37 @@
-const rangeInput = document.querySelector(".range-input input") as HTMLInputElement;
-const rangeValue = document.querySelector(".range-input .value div") as HTMLDivElement;
+const rangeInput = document.querySelector(
+  ".range-input input"
+) as HTMLInputElement;
+const rangeValue = document.querySelector(
+  ".range-input .value div"
+) as HTMLDivElement;
 const hambugerMenu = document.querySelector("#nav-icon3") as HTMLDivElement;
 const menu = document.querySelector(".side-menu") as HTMLDivElement;
 const palleteCancel = document.querySelector(".Cancel") as HTMLButtonElement;
 const palleteSave = document.querySelector(".Save") as HTMLButtonElement;
-const colorChooser = document.querySelector(".color-chooser") as HTMLInputElement;
-const palateColors =  document.querySelectorAll<HTMLSpanElement>(".choose-color")
-const createColorBtn = document.querySelector(".createColor-btn") as HTMLButtonElement;
-const openSettingOne = document.querySelector(".color-pallete-container") as HTMLDivElement;
+const colorChooser = document.querySelector(
+  ".color-chooser"
+) as HTMLInputElement;
+const palateColors =
+  document.querySelectorAll<HTMLSpanElement>(".choose-color");
+const createColorBtn = document.querySelector(
+  ".createColor-btn"
+) as HTMLButtonElement;
+const openSettingOne = document.querySelector(
+  ".color-pallete-container"
+) as HTMLDivElement;
 const paleteName = document.querySelector(".input-name") as HTMLInputElement;
+const currPalettes = document.querySelector(
+  ".user-data-palettes"
+) as HTMLDivElement;
+const paletteBtn = document.querySelector(".user-paletes") as HTMLButtonElement;
+const scrollPalette = document.querySelector(
+  ".scroll-palettes"
+) as HTMLDivElement;
 
 let chosenColor: number = 0;
-
 interface colorPlatesProps {
   name: string;
-  color_palete: string[]
+  color_palete: string[];
 }
 interface useProjectsProps {
   name: string;
@@ -22,74 +39,112 @@ interface useProjectsProps {
 }
 
 window.addEventListener("load", () => {
-  const storagePaletes: colorPlatesProps[] | null = JSON.parse(localStorage.getItem("color-paletes")!)
-  const storageProjects: useProjectsProps[] | null = JSON.parse(localStorage.getItem("user-projects")!)
+  if (localStorage.getItem("color-palete") === null) {
+    localStorage.setItem("color-palete", "[]");
+  } else if (localStorage.getItem("user-projects") === null) {
+    localStorage.setItem("user-projects", "[]");
+  } else return
+});
 
-  if(typeof storagePaletes === null){
-    localStorage.setItem("color-palete", "[]")
-  }else if(typeof storageProjects === null){
-    localStorage.setItem("user-projects", "[]")
-  }
-})
-
-for(let i = 0; i < palateColors.length; i++) {
- palateColors[i].addEventListener("click", () => {
-  for(let k = 0; k < palateColors.length; k++){
-    palateColors[k].className = "choose-color"
-  }
-
-  palateColors[i].className = "choose-color chosen"
-  chosenColor = i
- })
-}
-
-colorChooser.addEventListener("input", () => {
-  palateColors[chosenColor].style.background = colorChooser.value
-})
-
-createColorBtn.addEventListener("click", () => {
-  openSettingOne.classList.toggle("hidden")
-})
-
-palleteCancel.addEventListener("click", () => {
-  openSettingOne.classList.toggle("hidden")
-})
-
-palleteSave.addEventListener('click', () => {
-  let accept: boolean = false
-  
-  for(let i = 0; i < palateColors.length; i++) {
-    if(!palateColors[i].style.background){
-      alert("please make sure all empty section is'nt empty")
-      break
-    }else if(!paleteName.value.trim()){
-      alert("fill the palete name field")
-      break
-    }else accept = true
-  }
-
-  if(accept){
-    const oldColors = JSON.parse(localStorage.getItem("color-palete")!)
-    
-    const newOnes: colorPlatesProps = {
-      name: paleteName.value,
-      color_palete: []
-    } 
-
-    for(let i = 0; i < palateColors.length; i++) {
-      newOnes.color_palete.push(palateColors[i].style.background)
+for (let i = 0; i < palateColors.length; i++) {
+  palateColors[i].addEventListener("click", () => {
+    for (let k = 0; k < palateColors.length; k++) {
+      palateColors[k].className = "choose-color";
     }
 
-    const combine: colorPlatesProps[] = [...oldColors, newOnes]
+    palateColors[i].className = "choose-color chosen";
+    chosenColor = i;
+  });
+}
 
-    localStorage.setItem("color-palete", JSON.stringify(combine))
+paletteBtn.addEventListener("click", () => {
+  currPalettes.classList.toggle("hidden");
+  const currPalettesStorage: colorPlatesProps[] | null = JSON.parse(
+    localStorage.getItem("color-palete")!
+  );
+  scrollPalette.innerHTML = "";
+
+  for (let i = 0; i < currPalettesStorage!.length; i++) {
+    const userPalette = document.createElement("div");
+    const Ptext = document.createElement("div");
+    const user_colors = document.createElement("div");
+
+    userPalette.className = "user-palette";
+    user_colors.className = "user-colors";
+    Ptext.className = "Ptext";
+    Ptext.innerHTML = currPalettesStorage![i].name;
+    userPalette.appendChild(Ptext);
+
+    currPalettesStorage![i].color_palete.forEach((color) => {
+      const each_color = `<span class="colors" style="background: ${color}"></span>`;
+      const colorNode = document
+        .createRange()
+        .createContextualFragment(each_color);
+
+      user_colors.appendChild(colorNode);
+    });
+
+    userPalette.appendChild(user_colors);
+
+    userPalette.addEventListener("click", () => {
+      const chosenColorForUser: string[] = currPalettesStorage![i].color_palete
+
+      eachColor.forEach((items, c) => {
+        items.style.background = chosenColorForUser[c];
+      });
+    })
+
+    scrollPalette.appendChild(userPalette);
   }
-})
+});
+
+colorChooser.addEventListener("input", () => {
+  palateColors[chosenColor].style.background = colorChooser.value;
+});
+
+createColorBtn.addEventListener("click", () => {
+  openSettingOne.classList.toggle("hidden");
+});
+
+palleteCancel.addEventListener("click", () => {
+  openSettingOne.classList.toggle("hidden");
+});
+
+palleteSave.addEventListener("click", () => {
+  let accept: boolean = false;
+
+  for (let i = 0; i < palateColors.length; i++) {
+    if (!palateColors[i].style.background) {
+      alert("please make sure all empty section is'nt empty");
+      break;
+    } else if (!paleteName.value.trim()) {
+      alert("fill the palete name field");
+      break;
+    } else accept = true;
+  }
+
+  if (accept) {
+    const oldColors = JSON.parse(localStorage.getItem("color-palete")!);
+
+    const newOnes: colorPlatesProps = {
+      name: paleteName.value,
+      color_palete: [],
+    };
+
+    for (let i = 0; i < palateColors.length; i++) {
+      newOnes.color_palete.push(palateColors[i].style.background);
+    }
+
+    let combine: colorPlatesProps[] = [...oldColors, newOnes]
+    localStorage.setItem("color-palete", JSON.stringify(combine));
+    openSettingOne.classList.toggle("hidden");
+  }
+});
 
 hambugerMenu.addEventListener("click", () => {
-  hambugerMenu.classList.toggle("open")
-  menu.classList.toggle("slide")
-})
+  hambugerMenu.classList.toggle("open");
+  menu.classList.toggle("slide");
+});
 
 const mosueCursor = document.querySelector(".cursor") as HTMLDivElement;
 interface userSettingsInterface<T> {
@@ -128,7 +183,21 @@ rangeInput.addEventListener("input", () => {
 let cStep: number = -1;
 let cPushArray: string[] = new Array();
 
-const colors: string[] = ["#FF2929","#F8FF29","#29FF54","#6129FF","#FF2994","#29FFF8","#FF9900","#8B4513","#670192","#3BFF86","#FF77A4","#206D67","#000",];
+const colors: string[] = [
+  "#FF2929",
+  "#F8FF29",
+  "#29FF54",
+  "#6129FF",
+  "#FF2994",
+  "#29FFF8",
+  "#FF9900",
+  "#8B4513",
+  "#670192",
+  "#3BFF86",
+  "#FF77A4",
+  "#206D67",
+  "#000",
+];
 
 const eachColor = document.querySelectorAll<HTMLSpanElement>(".color");
 
@@ -144,18 +213,15 @@ eraser.addEventListener("click", () => {
 
 function Painting(this: any) {
   this.declareColor = () => {
-
     eachColor.forEach((element) => {
-
       element.addEventListener("click", () => {
         for (let i = 0; i < eachColor.length; i++) {
-          eachColor[i].classList.remove("active")
+          eachColor[i].classList.remove("active");
         }
-        element.classList.add("active")
+        element.classList.add("active");
         userSettings.color = element.style.background;
       });
     });
-
   };
   this.declareThick = () => {
     range.addEventListener("input", () => {
@@ -175,8 +241,8 @@ const drawImage = () => {
   image.src = "../../assets/white.jpg";
 
   image.onload = () => {
-    if(ctx){
-        ctx.drawImage(image, 0, 0, innerWidth, innerHeight);
+    if (ctx) {
+      ctx.drawImage(image, 0, 0, innerWidth, innerHeight);
     }
     cPush();
   };
@@ -186,8 +252,8 @@ drawImage();
 
 const clear = document.querySelector(".clear") as HTMLDivElement;
 clear.addEventListener("click", () => {
-  if(ctx) {
-      ctx.clearRect(0, 0, canvas!.width, canvas!.height);
+  if (ctx) {
+    ctx.clearRect(0, 0, canvas!.width, canvas!.height);
   }
   drawImage();
 });
@@ -205,13 +271,13 @@ const endPosition = (e: MouseEvent) => {
   cPush();
 };
 
-const updateSettings = new (Painting as any);
+const updateSettings = new (Painting as any)();
 updateSettings.declareColor();
 updateSettings.declareThick();
 
 const draw = (e: MouseEvent) => {
   if (!painting) return;
-  if(ctx){
+  if (ctx) {
     ctx.lineWidth = userSettings.thick;
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
@@ -221,7 +287,7 @@ const draw = (e: MouseEvent) => {
     ctx.stroke();
     ctx.beginPath();
     ctx.moveTo(e.clientX, e.clientY);
-    }
+  }
 };
 
 const mouseLeave = (e: MouseEvent) => {
@@ -246,8 +312,8 @@ const Redo = () => {
     const canvasPic = new Image();
     canvasPic.src = cPushArray[cStep];
     canvasPic.onload = function () {
-      if(ctx){
-          ctx.drawImage(canvasPic, 0, 0);
+      if (ctx) {
+        ctx.drawImage(canvasPic, 0, 0);
       }
     };
   }

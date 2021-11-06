@@ -12,7 +12,7 @@ body {
   overflow: hidden;
   position: relative;
 }
-canvas { 
+canvas {
   border: 2px solid #000;
   cursor: crosshair;
   position: absolute;
@@ -55,6 +55,63 @@ canvas {
     justify-content: space-between;
     align-items: center;
     margin: 0 50px;
+    position: relative;
+    .user-data-palettes {
+      position: absolute;
+      width: 300px;
+      height: 150px;
+      background: #1f1f1f;
+      transform: translate(35px, -100px);
+      border-radius: 10px;
+      &.hidden {
+        display: none;
+      }
+      .scroll-palettes {
+        box-shadow: inset 0 0 10px;
+        padding: 0 10px;
+        width: 299px;
+        overflow: hidden;
+        overflow-y: scroll;
+        height: 100px;
+        .user-palette {
+          background: #727272;
+          border-radius: 10px;
+          height: 80px;
+          cursor: pointer;
+          margin-top: 20px;
+          position: relative;
+          .Ptext {
+            width: 100%;
+            top: 0;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #fff;
+            position: absolute;
+          }
+          .user-colors {
+            display: grid;
+            place-items: center;
+            grid-template-columns: repeat(7, 1fr);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            transform: translateY(-10px);
+            gap: 5px;
+            .colors {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background: #fff;
+            }
+          }
+        }
+      }
+      .text {
+        width: 100%;
+        text-align: center;
+        color: #fff;
+      }
+    }
     button {
       height: 50px;
       width: 50px;
@@ -133,17 +190,32 @@ canvas {
     }
   }
 }
-.cursor{
-    position: absolute;
-    z-index: 1000;
-    border: 1px solid black;
-    background: transparent;
-    transition: 0.0008s;
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
+.cursor {
+  position: absolute;
+  z-index: 1000;
+  border: 1px solid black;
+  background: transparent;
+  transition: 0.0008s;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
 }
 
 .draw-container:hover ~ .cursor {
   display: none;
+}
+
+//scroll stuff
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #a9a9a9;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+::-webkit-scrollbar-track {
+  background-color: #151515;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
 }

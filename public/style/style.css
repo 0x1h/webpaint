@@ -75,6 +75,76 @@ canvas {
       -ms-flex-align: center;
           align-items: center;
   margin: 0 50px;
+  position: relative;
+}
+
+.color-panel .manage .user-data-palettes {
+  position: absolute;
+  width: 300px;
+  height: 150px;
+  background: #1f1f1f;
+  -webkit-transform: translate(35px, -100px);
+          transform: translate(35px, -100px);
+  border-radius: 10px;
+}
+
+.color-panel .manage .user-data-palettes.hidden {
+  display: none;
+}
+
+.color-panel .manage .user-data-palettes .scroll-palettes {
+  -webkit-box-shadow: inset 0 0 10px;
+          box-shadow: inset 0 0 10px;
+  padding: 0 10px;
+  width: 299px;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 100px;
+}
+
+.color-panel .manage .user-data-palettes .scroll-palettes .user-palette {
+  background: #727272;
+  border-radius: 10px;
+  height: 80px;
+  cursor: pointer;
+  margin-top: 20px;
+  position: relative;
+}
+
+.color-panel .manage .user-data-palettes .scroll-palettes .user-palette .Ptext {
+  width: 100%;
+  top: 0;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #fff;
+  position: absolute;
+}
+
+.color-panel .manage .user-data-palettes .scroll-palettes .user-palette .user-colors {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  -ms-grid-columns: (1fr)[7];
+      grid-template-columns: repeat(7, 1fr);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  -webkit-transform: translateY(-10px);
+          transform: translateY(-10px);
+  gap: 5px;
+}
+
+.color-panel .manage .user-data-palettes .scroll-palettes .user-palette .user-colors .colors {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.color-panel .manage .user-data-palettes .text {
+  width: 100%;
+  text-align: center;
+  color: #fff;
 }
 
 .color-panel .manage button {
@@ -197,5 +267,22 @@ canvas {
 
 .draw-container:hover ~ .cursor {
   display: none;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #a9a9a9;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-track {
+  background-color: #151515;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
 }
 /*# sourceMappingURL=style.css.map */
