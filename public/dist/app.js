@@ -1,6 +1,77 @@
 "use strict";
 const rangeInput = document.querySelector(".range-input input");
 const rangeValue = document.querySelector(".range-input .value div");
+const hambugerMenu = document.querySelector("#nav-icon3");
+const menu = document.querySelector(".side-menu");
+const palleteCancel = document.querySelector(".Cancel");
+const palleteSave = document.querySelector(".Save");
+const colorChooser = document.querySelector(".color-chooser");
+const palateColors = document.querySelectorAll(".choose-color");
+const createColorBtn = document.querySelector(".createColor-btn");
+const openSettingOne = document.querySelector(".color-pallete-container");
+const paleteName = document.querySelector(".input-name");
+let chosenColor = 0;
+window.addEventListener("load", () => {
+    const storagePaletes = JSON.parse(localStorage.getItem("color-paletes"));
+    const storageProjects = JSON.parse(localStorage.getItem("user-projects"));
+    if (!storagePaletes) {
+        localStorage.setItem("color-palete", "[]");
+    }
+    else if (!storageProjects) {
+        localStorage.setItem("user-projects", "[]");
+    }
+});
+for (let i = 0; i < palateColors.length; i++) {
+    palateColors[i].addEventListener("click", () => {
+        for (let k = 0; k < palateColors.length; k++) {
+            palateColors[k].className = "choose-color";
+        }
+        palateColors[i].className = "choose-color chosen";
+        chosenColor = i;
+    });
+}
+colorChooser.addEventListener("input", () => {
+    palateColors[chosenColor].style.background = colorChooser.value;
+});
+createColorBtn.addEventListener("click", () => {
+    openSettingOne.classList.toggle("hidden");
+});
+palleteCancel.addEventListener("click", () => {
+    openSettingOne.classList.toggle("hidden");
+});
+console.log(JSON.parse(localStorage.getItem("color-palete")));
+palleteSave.addEventListener('click', () => {
+    let accept = false;
+    for (let i = 0; i < palateColors.length; i++) {
+        if (!palateColors[i].style.background) {
+            alert("please make sure all empty section is'nt empty");
+            break;
+        }
+        else if (!paleteName.value.trim()) {
+            alert("fill the palete name field");
+            break;
+        }
+        else
+            accept = true;
+    }
+    if (accept) {
+        const oldColors = JSON.parse(localStorage.getItem("color-palete"));
+        const newOnes = {
+            name: paleteName.value,
+            color_palete: []
+        };
+        for (let i = 0; i < palateColors.length; i++) {
+            newOnes.color_palete.push(palateColors[i].style.background);
+        }
+        const combine = [...oldColors, newOnes];
+        console.log(...oldColors);
+        localStorage.setItem("color-palete", JSON.stringify(combine));
+    }
+});
+hambugerMenu.addEventListener("click", () => {
+    hambugerMenu.classList.toggle("open");
+    menu.classList.toggle("slide");
+});
 const mosueCursor = document.querySelector(".cursor");
 const userSettings = {
     color: "black",

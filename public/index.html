@@ -2,17 +2,65 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/v4-shims.css"/>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.2/css/v4-shims.css"
+    />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style/style.css" />
+    <link rel="stylesheet" href="./style/side-menu.css" />
     <link rel="shortcut icon" href="../assets/logo.png" />
     <title>Paint Clone</title>
   </head>
   <body>
     <!-- C a n v a s -->
     <canvas></canvas>
+    <!-- Side-menu stuff -->
+    <div class="color-pallete-container hidden">
+      <div class="pallete-container-width">
+        <div class="text">Choose Your colors</div>
+        <div class="input-section">
+          <input type="text" class="input-name" placeholder="Pallete name">
+        </div>
+        <div class="main-choosing-colors">
+          <span class="choose-color chosen"></span>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+          <div class="choose-color"></div>
+        </div>
+        <input type="color" class="color-chooser">
+        <div class="buttons">
+          <button class="Cancel">Cancel</button>
+          <button class="Save">Save</button>
+        </div>
+      </div>
+    </div>
+    <div class="side-menu">
+      <div id="nav-icon3">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="menu-options">
+        <button class="createColor-btn">Create Your Collor Pallete</button>
+        <button>Save Work</button>
+      </div>
+      <span id="github-logo"> </span>
+    </div>
     <!-- control panel -->
     <div class="draw-container">
       <div class="color-panel">

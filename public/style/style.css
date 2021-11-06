@@ -9,95 +9,13 @@
 
 body {
   overflow: hidden;
+  position: relative;
 }
 
 canvas {
   border: 2px solid #000;
   cursor: crosshair;
-}
-
-.menu {
   position: absolute;
-  width: 100%;
-  height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.menu .container {
-  width: 500px;
-  height: 400px;
-  background: #2c2f33;
-  border-radius: 10px;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 1fr 300px 40px;
-      grid-template-rows: 1fr 300px 40px;
-}
-
-.menu .container .okay {
-  width: 100%;
-  height: 40px;
-  position: relative;
-  bottom: 0;
-  right: 0;
-  border-radius: 0 0 10px 10px;
-  border: none;
-  outline: none;
-  color: #FFF;
-  background: #5cb85c;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.menu .container .okay:active {
-  background: #4b8f4b;
-}
-
-.menu .container p {
-  color: #fff;
-  text-align: center;
-}
-
-.menu .container .alert {
-  padding: 0 80px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.menu .container .title {
-  width: 100%;
-  height: 50px;
-  background: #23272a;
-  border-radius: 10px 10px 0 0;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.menu .container .title h3 {
-  color: #fff;
 }
 
 .draw-container {
@@ -105,7 +23,7 @@ canvas {
   display: grid;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100px;
   background: #313131;
@@ -139,7 +57,6 @@ canvas {
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background: red;
   cursor: pointer;
 }
 

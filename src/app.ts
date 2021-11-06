@@ -1,5 +1,99 @@
 const rangeInput = document.querySelector(".range-input input") as HTMLInputElement;
 const rangeValue = document.querySelector(".range-input .value div") as HTMLDivElement;
+const hambugerMenu = document.querySelector("#nav-icon3") as HTMLDivElement;
+const menu = document.querySelector(".side-menu") as HTMLDivElement;
+const palleteCancel = document.querySelector(".Cancel") as HTMLButtonElement;
+const palleteSave = document.querySelector(".Save") as HTMLButtonElement;
+const colorChooser = document.querySelector(".color-chooser") as HTMLInputElement;
+const palateColors =  document.querySelectorAll<HTMLSpanElement>(".choose-color")
+const createColorBtn = document.querySelector(".createColor-btn") as HTMLButtonElement;
+const openSettingOne = document.querySelector(".color-pallete-container") as HTMLDivElement;
+const paleteName = document.querySelector(".input-name") as HTMLInputElement;
+
+let chosenColor: number = 0;
+
+interface colorPlatesProps {
+  name: string;
+  color_palete: string[]
+}
+interface useProjectsProps {
+  name: string;
+  imageHash: string;
+}
+
+window.addEventListener("load", () => {
+  const storagePaletes: colorPlatesProps[] | null = JSON.parse(localStorage.getItem("color-paletes")!)
+  const storageProjects: useProjectsProps[] | null = JSON.parse(localStorage.getItem("user-projects")!)
+
+  if(!storagePaletes){
+    localStorage.setItem("color-palete", "[]")
+  }else if(!storageProjects){
+    localStorage.setItem("user-projects", "[]")
+  }
+})
+
+for(let i = 0; i < palateColors.length; i++) {
+ palateColors[i].addEventListener("click", () => {
+  for(let k = 0; k < palateColors.length; k++){
+    palateColors[k].className = "choose-color"
+  }
+
+  palateColors[i].className = "choose-color chosen"
+  chosenColor = i
+ })
+}
+
+colorChooser.addEventListener("input", () => {
+  palateColors[chosenColor].style.background = colorChooser.value
+})
+
+createColorBtn.addEventListener("click", () => {
+  openSettingOne.classList.toggle("hidden")
+})
+
+palleteCancel.addEventListener("click", () => {
+  openSettingOne.classList.toggle("hidden")
+})
+
+console.log(JSON.parse(localStorage.getItem("color-palete")!))
+
+palleteSave.addEventListener('click', () => {
+  let accept: boolean = false
+  
+  for(let i = 0; i < palateColors.length; i++) {
+    if(!palateColors[i].style.background){
+      alert("please make sure all empty section is'nt empty")
+      break
+    }else if(!paleteName.value.trim()){
+      alert("fill the palete name field")
+      break
+    }else accept = true
+  }
+
+  if(accept){
+    const oldColors = JSON.parse(localStorage.getItem("color-palete")!)
+    
+    const newOnes: colorPlatesProps = {
+      name: paleteName.value,
+      color_palete: []
+    } 
+
+    for(let i = 0; i < palateColors.length; i++) {
+      newOnes.color_palete.push(palateColors[i].style.background)
+    }
+
+    const combine: colorPlatesProps[] = [...oldColors, newOnes]
+    
+    console.log(...oldColors)
+
+    localStorage.setItem("color-palete", JSON.stringify(combine))
+  }
+})
+
+hambugerMenu.addEventListener("click", () => {
+  hambugerMenu.classList.toggle("open")
+  menu.classList.toggle("slide")
+})
 
 const mosueCursor = document.querySelector(".cursor") as HTMLDivElement;
 interface userSettingsInterface<T> {
@@ -47,7 +141,6 @@ eachColor.forEach((items, i) => {
 });
 
 const eraser = document.querySelector(".eraser") as HTMLButtonElement;
-
 
 eraser.addEventListener("click", () => {
   userSettings.color = "#FFF";
