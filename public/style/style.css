@@ -74,7 +74,7 @@ canvas {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 80px;
+  margin: 0 50px;
 }
 
 .color-panel .manage button {

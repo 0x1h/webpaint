@@ -14,10 +14,10 @@ let chosenColor = 0;
 window.addEventListener("load", () => {
     const storagePaletes = JSON.parse(localStorage.getItem("color-paletes"));
     const storageProjects = JSON.parse(localStorage.getItem("user-projects"));
-    if (!storagePaletes) {
+    if (typeof storagePaletes === null) {
         localStorage.setItem("color-palete", "[]");
     }
-    else if (!storageProjects) {
+    else if (typeof storageProjects === null) {
         localStorage.setItem("user-projects", "[]");
     }
 });
@@ -39,7 +39,6 @@ createColorBtn.addEventListener("click", () => {
 palleteCancel.addEventListener("click", () => {
     openSettingOne.classList.toggle("hidden");
 });
-console.log(JSON.parse(localStorage.getItem("color-palete")));
 palleteSave.addEventListener('click', () => {
     let accept = false;
     for (let i = 0; i < palateColors.length; i++) {
@@ -64,7 +63,6 @@ palleteSave.addEventListener('click', () => {
             newOnes.color_palete.push(palateColors[i].style.background);
         }
         const combine = [...oldColors, newOnes];
-        console.log(...oldColors);
         localStorage.setItem("color-palete", JSON.stringify(combine));
     }
 });
@@ -90,7 +88,7 @@ const step = parseFloat(rangeInput.step);
 for (let i = start; i <= end; i += step) {
     rangeValue.innerHTML += `<div>${i}</div>`;
 }
-const range = document.querySelector("input");
+const range = document.querySelector(".range");
 rangeInput.addEventListener("input", () => {
     let top = (parseFloat(rangeInput.value) / step) * -40;
     rangeValue.style.marginTop = `${top}px`;

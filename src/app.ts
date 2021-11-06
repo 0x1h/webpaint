@@ -25,9 +25,9 @@ window.addEventListener("load", () => {
   const storagePaletes: colorPlatesProps[] | null = JSON.parse(localStorage.getItem("color-paletes")!)
   const storageProjects: useProjectsProps[] | null = JSON.parse(localStorage.getItem("user-projects")!)
 
-  if(!storagePaletes){
+  if(typeof storagePaletes === null){
     localStorage.setItem("color-palete", "[]")
-  }else if(!storageProjects){
+  }else if(typeof storageProjects === null){
     localStorage.setItem("user-projects", "[]")
   }
 })
@@ -55,8 +55,6 @@ palleteCancel.addEventListener("click", () => {
   openSettingOne.classList.toggle("hidden")
 })
 
-console.log(JSON.parse(localStorage.getItem("color-palete")!))
-
 palleteSave.addEventListener('click', () => {
   let accept: boolean = false
   
@@ -83,8 +81,6 @@ palleteSave.addEventListener('click', () => {
     }
 
     const combine: colorPlatesProps[] = [...oldColors, newOnes]
-    
-    console.log(...oldColors)
 
     localStorage.setItem("color-palete", JSON.stringify(combine))
   }
@@ -122,7 +118,7 @@ for (let i = start; i <= end; i += step) {
   rangeValue.innerHTML += `<div>${i}</div>`;
 }
 
-const range = document.querySelector("input") as HTMLInputElement;
+const range = document.querySelector(".range") as HTMLInputElement;
 
 rangeInput.addEventListener("input", () => {
   let top: number = (parseFloat(rangeInput.value) / step) * -40;
@@ -146,7 +142,6 @@ eraser.addEventListener("click", () => {
   userSettings.color = "#FFF";
 });
 
-
 function Painting(this: any) {
   this.declareColor = () => {
 
@@ -156,11 +151,9 @@ function Painting(this: any) {
         for (let i = 0; i < eachColor.length; i++) {
           eachColor[i].classList.remove("active")
         }
-
         element.classList.add("active")
         userSettings.color = element.style.background;
       });
-
     });
 
   };
