@@ -1,6 +1,6 @@
 # Web Paint
 
-## UPDATE v1.8-beta
+## UPDATE v2.0
 
 ### • Now you don't have booring colors you can create you own color palette
 
