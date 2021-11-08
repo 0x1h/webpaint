@@ -2,9 +2,9 @@
 
 ## UPDATE v1.8-beta
 
-## • Now you don't have booring colors you can create you own color palette
+### • Now you don't have booring colors you can create you own color palette
 
-## Are you afraid of loosing your drawn? don't worry now you can save your peojects
+### Are you afraid of loosing your drawn? don't worry now you can save your peojects
 
 ## How to use
 
