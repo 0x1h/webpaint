@@ -247,4 +247,104 @@
   border-radius: 40px;
   cursor: pointer;
 }
-/*# sourceMappingURL=side-menu.css.map */
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.save-work-background {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: #000000b3;
+  z-index: 9;
+}
+
+.save-work-background .save-work-container {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  background: #616161;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 0 15px;
+          box-shadow: 0 0 15px;
+}
+
+.save-work-background .save-work-container .text {
+  color: #FFF;
+  text-align: center;
+}
+
+.save-work-background .save-work-container .project-name-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 90px;
+}
+
+.save-work-background .save-work-container .project-name-box input {
+  background: transparent;
+  border: 3px solid #88ff51;
+  color: #FFF;
+  border-radius: 4px;
+  width: 250px;
+  text-align: center;
+  height: 30px;
+  outline: none;
+}
+
+.save-work-background .save-work-container .btn-stuff {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 0 20%;
+  height: 50px;
+}
+
+.save-work-background .save-work-container .btn-stuff button:nth-child(1) {
+  color: #FFF;
+  background: #000;
+}
+
+.save-work-background .save-work-container .btn-stuff button {
+  color: #000;
+  background: #88ff51;
+  border-radius: 50px;
+  width: 100px;
+  border: none;
+  height: 40px;
+  cursor: pointer;
+}
+
+.save-work-background.hidden {
+  display: none;
+}
+/*# sourceMappingURL=save-work.css.map */

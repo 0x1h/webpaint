@@ -12,14 +12,50 @@
     />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../assets/logo.png" />
     <link rel="stylesheet" href="./style/style.css" />
     <link rel="stylesheet" href="./style/side-menu.css" />
-    <link rel="shortcut icon" href="../assets/logo.png" />
+    <link rel="stylesheet" href="./style/save-work.css">
+    <link rel="stylesheet" href="./style/load-stuff.css">
     <title>Paint Clone</title>
   </head>
   <body>
     <!-- C a n v a s -->
     <canvas></canvas>
+    <!-- load projects -->
+    <!-- save stuff -->
+    <div class="save-work-background hidden">
+      <div class="save-work-container">
+        <div class="text">Save Your Work</div>
+        <div class="project-name-box">
+          <input type="text" class="project-namee">
+        </div>
+        <div class="btn-stuff">
+          <button class="cancel-workspace">Cancel</button>
+          <button class="save-workspace">Save</button>
+        </div>
+      </div>
+    </div>
+    <div class="load-stuff-background hidden">
+      <div class="load-project-container">
+        <div class="text">Load Your Project</div>
+        <div class="user-project-list">
+          <!-- from here -->
+          <div class="each-project">
+            <button>Delete</button>
+            <div class="title">My Mona Lisa</div>
+            <div class="canvas-container">
+              <canvas class="preview"></canvas>
+            </div>
+          </div>
+          <!-- to here -->
+        </div>
+        <div class="load-buttons">
+          <button class="cancelProject-btn">Cancel</button>
+          <button class="loadProject-btn">Load</button>
+        </div>
+      </div>
+    </div>
     <!-- Side-menu stuff -->
     <div class="color-pallete-container hidden">
       <div class="pallete-container-width">
@@ -58,7 +94,8 @@
       </div>
       <div class="menu-options">
         <button class="createColor-btn">Create Your Collor Pallete</button>
-        <button>Save Work</button>
+        <button class="save-work">Save Work</button>
+        <button class="load-project">Load Your Project</button>
       </div>
       <span id="github-logo"> </span>
     </div>

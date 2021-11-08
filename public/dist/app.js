@@ -13,6 +13,11 @@ const paleteName = document.querySelector(".input-name");
 const currPalettes = document.querySelector(".user-data-palettes");
 const paletteBtn = document.querySelector(".user-paletes");
 const scrollPalette = document.querySelector(".scroll-palettes");
+const saveWork = document.querySelector('.save-work');
+const saveWorkContainer = document.querySelector('.save-work-background');
+const cancelWorkspace = document.querySelector('.cancel-workspace');
+const saveWorkspace = document.querySelector('.save-workspace');
+const projectNameInput = document.querySelector('.project-namee');
 let chosenColor = 0;
 window.addEventListener("load", () => {
     if (localStorage.getItem("color-palete") === null) {
@@ -63,11 +68,21 @@ paletteBtn.addEventListener("click", () => {
         scrollPalette.appendChild(userPalette);
     }
 });
+saveWork.addEventListener("click", () => {
+    saveWorkContainer.classList.toggle("hidden");
+    menu.classList.toggle("slide");
+    hambugerMenu.classList.toggle("open");
+});
+cancelWorkspace.addEventListener("click", () => {
+    saveWorkContainer.classList.toggle("hidden");
+});
 colorChooser.addEventListener("input", () => {
     palateColors[chosenColor].style.background = colorChooser.value;
 });
 createColorBtn.addEventListener("click", () => {
     openSettingOne.classList.toggle("hidden");
+    menu.classList.toggle("slide");
+    hambugerMenu.classList.toggle("open");
 });
 palleteCancel.addEventListener("click", () => {
     openSettingOne.classList.toggle("hidden");
@@ -104,11 +119,94 @@ hambugerMenu.addEventListener("click", () => {
     hambugerMenu.classList.toggle("open");
     menu.classList.toggle("slide");
 });
+saveWorkspace.addEventListener("click", () => {
+    const oldSaveProject = JSON.parse(localStorage.getItem("user-projects"));
+    const readySave = { name: "", imageHash: "" };
+    if (!projectNameInput.value.trim()) {
+        alert("fill the Project Name");
+    }
+    else {
+        readySave.name = projectNameInput.value;
+        readySave.imageHash = canvas.toDataURL();
+    }
+    const setProject = [...oldSaveProject, readySave];
+    localStorage.setItem("user-projects", JSON.stringify(setProject));
+    projectNameInput.value = "";
+    saveWorkContainer.classList.toggle("hidden");
+    alert("Your Project Saved");
+});
 const mosueCursor = document.querySelector(".cursor");
 const userSettings = {
     color: "black",
     thick: 2,
 };
+const cancelProjectBtn = document.querySelector(".cancelProject-btn");
+const loadProjectBtn = document.querySelector(".loadProject-btn");
+const openProjectsBtn = document.querySelector(".load-project");
+const loadStuffBG = document.querySelector(".load-stuff-background");
+const projectList = document.querySelector(".user-project-list");
+let chosenProject = "";
+openProjectsBtn.addEventListener("click", () => {
+    projectList.innerHTML = "";
+    loadStuffBG.classList.toggle("hidden");
+    menu.classList.toggle("slide");
+    hambugerMenu.classList.toggle("open");
+    let projectStorage = JSON.parse(localStorage.getItem("user-projects"));
+    if (projectStorage.length !== 0) {
+        for (let i = 0; i < projectStorage.length; i++) {
+            const eachProject = document.createElement("div");
+            eachProject.className = "each-project";
+            const deleteBtn = document.createElement("button");
+            deleteBtn.innerHTML = "delete";
+            deleteBtn.className = 'delete-btn';
+            eachProject.appendChild(deleteBtn);
+            const title = document.createElement("div");
+            title.className = "title";
+            title.innerHTML = projectStorage[i].name;
+            eachProject.appendChild(title);
+            const canvasContainer = document.createElement("div");
+            canvasContainer.className = "canvas-container";
+            const previewCanvas = document.createElement("canvas");
+            previewCanvas.className = "preview";
+            const previewCtx = previewCanvas.getContext('2d');
+            const previewImg = new Image();
+            previewImg.src = projectStorage[i].imageHash;
+            previewImg.onload = () => {
+                previewCtx.drawImage(previewImg, 0, 0);
+            };
+            canvasContainer.appendChild(previewCanvas);
+            eachProject.appendChild(canvasContainer);
+            projectList.appendChild(eachProject);
+            eachProject.addEventListener("click", () => {
+                const allPRoject = document.querySelectorAll(".each-project");
+                for (let k = 0; k < allPRoject.length; k++) {
+                    allPRoject[k].className = "each-project";
+                }
+                eachProject.classList.toggle("chosen");
+                chosenProject = projectStorage[i].imageHash;
+                deleteBtn.addEventListener("click", () => {
+                    let index = projectStorage[i].name;
+                    const deletedProject = projectStorage === null || projectStorage === void 0 ? void 0 : projectStorage.filter(e => e.name !== index);
+                    localStorage.setItem("user-projects", JSON.stringify(deletedProject));
+                    menu.classList.toggle("slide");
+                    loadStuffBG.classList.toggle("hidden");
+                    hambugerMenu.classList.toggle("open");
+                    alert(`Project ${index} deleted Succesfuly`);
+                }, { once: true });
+            });
+        }
+    }
+});
+loadProjectBtn.addEventListener('click', () => {
+    const ctxImage = new Image();
+    ctxImage.src = chosenProject;
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.drawImage(ctxImage, 0, 0);
+    loadStuffBG.classList.toggle("hidden");
+});
+cancelProjectBtn.addEventListener("click", () => {
+    loadStuffBG.classList.toggle("hidden");
+});
 document.addEventListener("mousemove", (e) => {
     const x = e.clientX;
     const y = e.clientY;
@@ -230,14 +328,14 @@ const cPush = () => {
     if (cStep < cPushArray.length) {
         cPushArray.length = cStep;
     }
-    cPushArray.push(document.querySelector("canvas").toDataURL());
+    cPushArray.push(canvas.toDataURL());
 };
 const Redo = () => {
     if (cStep < cPushArray.length - 1) {
         cStep++;
         const canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
-        canvasPic.onload = function () {
+        canvasPic.onload = () => {
             if (ctx) {
                 ctx.drawImage(canvasPic, 0, 0);
             }
@@ -249,7 +347,7 @@ const Undo = () => {
         cStep--;
         const canvasPic = new Image();
         canvasPic.src = cPushArray[cStep];
-        canvasPic.onload = function () {
+        canvasPic.onload = () => {
             ctx.drawImage(canvasPic, 0, 0);
         };
     }

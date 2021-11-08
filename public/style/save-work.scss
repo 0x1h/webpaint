@@ -1,0 +1,69 @@
+@import './side-menu.scss';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.save-work-background{
+    @include Center;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: #000000b3;
+    z-index: 9;
+    .save-work-container{
+        position: absolute;
+        width: 400px;
+        height: 200px;
+        background: #616161;
+        border-radius: 20px;
+        box-shadow: 0 0 15px;
+        .text{
+            color: #FFF;
+            text-align: center;
+        }
+        .project-name-box{
+            @include Center;
+            width: 100%;
+            height: 90px;
+            input{
+                background: transparent;
+                border: 3px solid #88ff51;
+                color: #FFF;
+                border-radius: 4px;
+                width: 250px;
+                text-align: center;
+                height: 30px;
+                outline: none;
+            }
+        }
+        .btn-stuff{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 0 20%;
+            height: 50px; 
+            button:nth-child(1){
+                color: #FFF;
+                background: #000;
+            }
+            button{
+                color: #000;
+                background: #88ff51;
+                border-radius: 50px;
+                width: 100px;
+                border: none;
+                height: 40px;
+                cursor: pointer;
+            }
+        }
+    }
+    &.hidden{
+        display: none;
+    }
+}

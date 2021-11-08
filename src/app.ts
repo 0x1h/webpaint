@@ -1,32 +1,22 @@
-const rangeInput = document.querySelector(
-  ".range-input input"
-) as HTMLInputElement;
-const rangeValue = document.querySelector(
-  ".range-input .value div"
-) as HTMLDivElement;
+const rangeInput = document.querySelector(".range-input input") as HTMLInputElement;
+const rangeValue = document.querySelector(".range-input .value div") as HTMLDivElement;
 const hambugerMenu = document.querySelector("#nav-icon3") as HTMLDivElement;
 const menu = document.querySelector(".side-menu") as HTMLDivElement;
 const palleteCancel = document.querySelector(".Cancel") as HTMLButtonElement;
 const palleteSave = document.querySelector(".Save") as HTMLButtonElement;
-const colorChooser = document.querySelector(
-  ".color-chooser"
-) as HTMLInputElement;
-const palateColors =
-  document.querySelectorAll<HTMLSpanElement>(".choose-color");
-const createColorBtn = document.querySelector(
-  ".createColor-btn"
-) as HTMLButtonElement;
-const openSettingOne = document.querySelector(
-  ".color-pallete-container"
-) as HTMLDivElement;
+const colorChooser = document.querySelector(".color-chooser") as HTMLInputElement;
+const palateColors = document.querySelectorAll<HTMLSpanElement>(".choose-color");
+const createColorBtn = document.querySelector(".createColor-btn") as HTMLButtonElement;
+const openSettingOne = document.querySelector(".color-pallete-container") as HTMLDivElement;
 const paleteName = document.querySelector(".input-name") as HTMLInputElement;
-const currPalettes = document.querySelector(
-  ".user-data-palettes"
-) as HTMLDivElement;
+const currPalettes = document.querySelector(".user-data-palettes") as HTMLDivElement;
 const paletteBtn = document.querySelector(".user-paletes") as HTMLButtonElement;
-const scrollPalette = document.querySelector(
-  ".scroll-palettes"
-) as HTMLDivElement;
+const scrollPalette = document.querySelector(".scroll-palettes") as HTMLDivElement;
+const saveWork = document.querySelector('.save-work') as HTMLButtonElement;
+const saveWorkContainer = document.querySelector('.save-work-background') as HTMLDivElement;
+const cancelWorkspace = document.querySelector('.cancel-workspace') as HTMLButtonElement;
+const saveWorkspace = document.querySelector('.save-workspace') as HTMLButtonElement
+const projectNameInput = document.querySelector('.project-namee') as HTMLInputElement 
 
 let chosenColor: number = 0;
 interface colorPlatesProps {
@@ -98,12 +88,25 @@ paletteBtn.addEventListener("click", () => {
   }
 });
 
+saveWork.addEventListener("click", () => {
+  saveWorkContainer.classList.toggle("hidden")
+  menu.classList.toggle("slide");
+  hambugerMenu.classList.toggle("open");
+})
+
+cancelWorkspace.addEventListener("click", () => {
+  saveWorkContainer.classList.toggle("hidden")
+})
+
 colorChooser.addEventListener("input", () => {
   palateColors[chosenColor].style.background = colorChooser.value;
 });
 
 createColorBtn.addEventListener("click", () => {
   openSettingOne.classList.toggle("hidden");
+  menu.classList.toggle("slide");
+  hambugerMenu.classList.toggle("open");
+  
 });
 
 palleteCancel.addEventListener("click", () => {
@@ -146,6 +149,25 @@ hambugerMenu.addEventListener("click", () => {
   menu.classList.toggle("slide");
 });
 
+saveWorkspace.addEventListener("click", () => {
+  const oldSaveProject = JSON.parse(localStorage.getItem("user-projects")!)
+  const readySave: useProjectsProps = {name: "", imageHash: ""}
+
+  if(!projectNameInput.value.trim()){
+    alert("fill the Project Name")
+  }else {
+    readySave.name = projectNameInput.value
+    readySave.imageHash = canvas!.toDataURL()
+  }
+
+  const setProject: useProjectsProps[] = [...oldSaveProject, readySave]
+  localStorage.setItem("user-projects", JSON.stringify(setProject))
+
+  projectNameInput.value = ""
+  saveWorkContainer.classList.toggle("hidden")
+  alert("Your Project Saved")
+})
+
 const mosueCursor = document.querySelector(".cursor") as HTMLDivElement;
 interface userSettingsInterface<T> {
   color: string;
@@ -155,6 +177,97 @@ const userSettings: userSettingsInterface<number> = {
   color: "black",
   thick: 2,
 };
+
+
+
+
+
+const cancelProjectBtn = document.querySelector(".cancelProject-btn") as HTMLButtonElement;
+const loadProjectBtn = document.querySelector(".loadProject-btn") as HTMLButtonElement;
+const openProjectsBtn = document.querySelector(".load-project") as HTMLButtonElement;
+const loadStuffBG = document.querySelector(".load-stuff-background") as  HTMLDivElement
+const projectList = document.querySelector(".user-project-list") as HTMLDivElement
+
+let chosenProject: string = ""
+
+openProjectsBtn.addEventListener("click", () => {
+  projectList.innerHTML = ""
+  loadStuffBG.classList.toggle("hidden")
+  menu.classList.toggle("slide");
+  hambugerMenu.classList.toggle("open");
+
+  let projectStorage: useProjectsProps[] | null = JSON.parse(localStorage.getItem("user-projects")!)
+
+  if(projectStorage!.length !== 0){
+    for(let i = 0; i < projectStorage!.length; i++){
+      const eachProject = document.createElement("div"); 
+      eachProject.className = "each-project"; 
+
+      const deleteBtn = document.createElement("button") as HTMLButtonElement;
+      deleteBtn.innerHTML = "delete"
+      deleteBtn.className = 'delete-btn'
+
+      eachProject.appendChild(deleteBtn)
+      const title = document.createElement("div"); 
+      title.className = "title"; 
+      title.innerHTML = projectStorage![i].name
+      eachProject.appendChild(title); 
+
+      const canvasContainer = document.createElement("div"); 
+      canvasContainer.className = "canvas-container"; 
+      const previewCanvas = document.createElement("canvas")
+      previewCanvas.className = "preview"
+      
+      const previewCtx = previewCanvas.getContext('2d')
+      const previewImg = new Image()
+      previewImg.src = projectStorage![i].imageHash
+
+      previewImg.onload = () => {
+        previewCtx!.drawImage(previewImg, 0, 0);
+      }
+
+      canvasContainer.appendChild(previewCanvas)
+      eachProject.appendChild(canvasContainer)
+      projectList.appendChild(eachProject)
+
+      eachProject.addEventListener("click", () => {
+        const allPRoject = document.querySelectorAll<HTMLDivElement>(".each-project")
+
+        for(let k = 0; k < allPRoject.length; k++){
+          allPRoject[k].className = "each-project"
+        }
+
+        eachProject.classList.toggle("chosen")
+        chosenProject = projectStorage![i].imageHash
+      
+        deleteBtn.addEventListener("click", () => {
+          let index = projectStorage![i].name
+
+         const deletedProject = projectStorage?.filter(e => e.name !== index)
+         localStorage.setItem("user-projects", JSON.stringify(deletedProject))
+         menu.classList.toggle("slide");
+         loadStuffBG.classList.toggle("hidden")
+         hambugerMenu.classList.toggle("open");
+         alert(`Project ${index} deleted Succesfuly`)
+        }, {once: true})
+      })
+    }
+  }
+})
+
+loadProjectBtn.addEventListener('click', () => {
+  const ctxImage = new Image();
+  ctxImage.src = chosenProject
+
+  ctx!.clearRect(0, 0, innerWidth, innerHeight)
+  ctx!.drawImage(ctxImage, 0, 0)
+  loadStuffBG.classList.toggle("hidden")
+})
+
+cancelProjectBtn.addEventListener("click", () => {
+  loadStuffBG.classList.toggle("hidden")
+})
+
 
 document.addEventListener("mousemove", (e: MouseEvent) => {
   const x: number = e.clientX;
@@ -303,7 +416,7 @@ const cPush = () => {
   if (cStep < cPushArray.length) {
     cPushArray.length = cStep;
   }
-  cPushArray.push(document.querySelector("canvas")!.toDataURL());
+  cPushArray.push(canvas!.toDataURL());
 };
 
 const Redo = () => {
@@ -311,7 +424,7 @@ const Redo = () => {
     cStep++;
     const canvasPic = new Image();
     canvasPic.src = cPushArray[cStep];
-    canvasPic.onload = function () {
+    canvasPic.onload = () => {
       if (ctx) {
         ctx.drawImage(canvasPic, 0, 0);
       }
@@ -324,7 +437,7 @@ const Undo = () => {
     cStep--;
     const canvasPic = new Image();
     canvasPic.src = cPushArray[cStep];
-    canvasPic.onload = function () {
+    canvasPic.onload = () => {
       ctx!.drawImage(canvasPic, 0, 0);
     };
   }

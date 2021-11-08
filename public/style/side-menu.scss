@@ -114,6 +114,10 @@
       width: 300px;
       border-radius: 5px;
       margin: 10px 0;
+      &:nth-child(3){
+        background: #64ff71;
+        color: #000;
+      }
     }
   }
 }
