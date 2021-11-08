@@ -1,4 +1,4 @@
-# Web-Paint
+# Web Paint
 
 ## UPDATE v1.8-beta
 
