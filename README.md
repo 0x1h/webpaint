@@ -1,16 +1,10 @@
 # Paint-Clone
 
-## UPDATE
+## UPDATE v1.8-beta
 
-###  • Added Redo and Undo
+## • Now you don't have booring colors you can create you own color palette
 
-Undo with - `Z`
-
-Redo with - `X`
-
-### • Added Cursor 
-
-### • Rewritten from JavaScript to TypeScript
+## Are you afraid of loosing your drawn? don't worry now you can save your peojects
 
 ## How to use
 
