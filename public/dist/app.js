@@ -47,6 +47,10 @@ paletteBtn.addEventListener("click", () => {
         const Ptext = document.createElement("div");
         const user_colors = document.createElement("div");
         userPalette.className = "user-palette";
+        const deletePalette = document.createElement("button");
+        deletePalette.className = "delete-palette";
+        deletePalette.innerHTML = "Remove";
+        userPalette.appendChild(deletePalette);
         user_colors.className = "user-colors";
         Ptext.className = "Ptext";
         Ptext.innerHTML = currPalettesStorage[i].name;
@@ -227,21 +231,7 @@ rangeInput.addEventListener("input", () => {
 });
 let cStep = -1;
 let cPushArray = new Array();
-const colors = [
-    "#FF2929",
-    "#F8FF29",
-    "#29FF54",
-    "#6129FF",
-    "#FF2994",
-    "#29FFF8",
-    "#FF9900",
-    "#8B4513",
-    "#670192",
-    "#3BFF86",
-    "#FF77A4",
-    "#206D67",
-    "#000",
-];
+const colors = ["#FF2929", "#F8FF29", "#29FF54", "#6129FF", "#FF2994", "#29FFF8", "#FF9900", "#8B4513", "#670192", "#3BFF86", "#FF77A4", "#206D67", "#000",];
 const eachColor = document.querySelectorAll(".color");
 eachColor.forEach((items, i) => {
     items.style.background = colors[i];

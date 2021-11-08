@@ -42,7 +42,7 @@ for (let i = 0; i < palateColors.length; i++) {
       palateColors[k].className = "choose-color";
     }
 
-    palateColors[i].className = "choose-color chosen";
+    palateColors[i].className = "choose-color chosen" as string
     chosenColor = i;
   });
 }
@@ -55,19 +55,23 @@ paletteBtn.addEventListener("click", () => {
   scrollPalette.innerHTML = "";
 
   for (let i = 0; i < currPalettesStorage!.length; i++) {
-    const userPalette = document.createElement("div");
-    const Ptext = document.createElement("div");
-    const user_colors = document.createElement("div");
+    const userPalette: HTMLDivElement = document.createElement("div");
+    const Ptext: HTMLDivElement = document.createElement("div");
+    const user_colors: HTMLDivElement = document.createElement("div");
 
     userPalette.className = "user-palette";
+    const deletePalette = document.createElement("button") as HTMLButtonElement
+    deletePalette.className = "delete-palette" as string
+    deletePalette.innerHTML = "Remove" as string
+    userPalette.appendChild(deletePalette)
     user_colors.className = "user-colors";
     Ptext.className = "Ptext";
     Ptext.innerHTML = currPalettesStorage![i].name;
     userPalette.appendChild(Ptext);
 
     currPalettesStorage![i].color_palete.forEach((color) => {
-      const each_color = `<span class="colors" style="background: ${color}"></span>`;
-      const colorNode = document
+      const each_color: string = `<span class="colors" style="background: ${color}"></span>`;
+      const colorNode: DocumentFragment = document
         .createRange()
         .createContextualFragment(each_color);
 
@@ -79,7 +83,7 @@ paletteBtn.addEventListener("click", () => {
     userPalette.addEventListener("click", () => {
       const chosenColorForUser: string[] = currPalettesStorage![i].color_palete
 
-      eachColor.forEach((items, c) => {
+      eachColor.forEach((items: HTMLSpanElement, c: number) => {
         items.style.background = chosenColorForUser[c];
       });
     })
@@ -178,10 +182,6 @@ const userSettings: userSettingsInterface<number> = {
   thick: 2,
 };
 
-
-
-
-
 const cancelProjectBtn = document.querySelector(".cancelProject-btn") as HTMLButtonElement;
 const loadProjectBtn = document.querySelector(".loadProject-btn") as HTMLButtonElement;
 const openProjectsBtn = document.querySelector(".load-project") as HTMLButtonElement;
@@ -200,7 +200,7 @@ openProjectsBtn.addEventListener("click", () => {
 
   if(projectStorage!.length !== 0){
     for(let i = 0; i < projectStorage!.length; i++){
-      const eachProject = document.createElement("div"); 
+      const eachProject: HTMLDivElement = document.createElement("div"); 
       eachProject.className = "each-project"; 
 
       const deleteBtn = document.createElement("button") as HTMLButtonElement;
@@ -219,7 +219,7 @@ openProjectsBtn.addEventListener("click", () => {
       previewCanvas.className = "preview"
       
       const previewCtx = previewCanvas.getContext('2d')
-      const previewImg = new Image()
+      const previewImg: HTMLImageElement = new Image()
       previewImg.src = projectStorage![i].imageHash
 
       previewImg.onload = () => {
@@ -241,9 +241,9 @@ openProjectsBtn.addEventListener("click", () => {
         chosenProject = projectStorage![i].imageHash
       
         deleteBtn.addEventListener("click", () => {
-          let index = projectStorage![i].name
+          let index: string = projectStorage![i].name
 
-         const deletedProject = projectStorage?.filter(e => e.name !== index)
+         const deletedProject: useProjectsProps[] = projectStorage?.filter(e => e.name !== index)!
          localStorage.setItem("user-projects", JSON.stringify(deletedProject))
          menu.classList.toggle("slide");
          loadStuffBG.classList.toggle("hidden")
@@ -256,8 +256,8 @@ openProjectsBtn.addEventListener("click", () => {
 })
 
 loadProjectBtn.addEventListener('click', () => {
-  const ctxImage = new Image();
-  ctxImage.src = chosenProject
+  const ctxImage: HTMLImageElement = new Image();
+  ctxImage.src = chosenProject as string
 
   ctx!.clearRect(0, 0, innerWidth, innerHeight)
   ctx!.drawImage(ctxImage, 0, 0)
@@ -296,21 +296,7 @@ rangeInput.addEventListener("input", () => {
 let cStep: number = -1;
 let cPushArray: string[] = new Array();
 
-const colors: string[] = [
-  "#FF2929",
-  "#F8FF29",
-  "#29FF54",
-  "#6129FF",
-  "#FF2994",
-  "#29FFF8",
-  "#FF9900",
-  "#8B4513",
-  "#670192",
-  "#3BFF86",
-  "#FF77A4",
-  "#206D67",
-  "#000",
-];
+const colors: string[] = ["#FF2929","#F8FF29","#29FF54","#6129FF","#FF2994","#29FFF8","#FF9900","#8B4513","#670192","#3BFF86","#FF77A4","#206D67","#000",];
 
 const eachColor = document.querySelectorAll<HTMLSpanElement>(".color");
 
@@ -435,8 +421,8 @@ const Redo = () => {
 const Undo = () => {
   if (cStep > 0) {
     cStep--;
-    const canvasPic = new Image();
-    canvasPic.src = cPushArray[cStep];
+    const canvasPic: HTMLImageElement = new Image();
+    canvasPic.src = cPushArray[cStep] as string
     canvasPic.onload = () => {
       ctx!.drawImage(canvasPic, 0, 0);
     };

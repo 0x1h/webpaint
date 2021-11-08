@@ -257,8 +257,6 @@ canvas:not(.preview) {
   z-index: 1000;
   border: 1px solid black;
   background: transparent;
-  -webkit-transition: 0.0008s;
-  transition: 0.0008s;
   border-radius: 50%;
   pointer-events: none;
   -webkit-transform: translate(-50%, -50%);
