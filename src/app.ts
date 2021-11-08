@@ -78,6 +78,13 @@ paletteBtn.addEventListener("click", () => {
       user_colors.appendChild(colorNode);
     });
 
+    deletePalette.addEventListener("click", () => {
+      let previousPlattes: colorPlatesProps [] = JSON.parse(localStorage.getItem("color-palete")!)
+      previousPlattes.splice(i, 1)
+      localStorage.setItem("color-palete", JSON.stringify(previousPlattes)) 
+      currPalettes.classList.toggle("hidden");
+    })
+
     userPalette.appendChild(user_colors);
 
     userPalette.addEventListener("click", () => {

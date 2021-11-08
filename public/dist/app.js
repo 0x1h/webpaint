@@ -62,6 +62,12 @@ paletteBtn.addEventListener("click", () => {
                 .createContextualFragment(each_color);
             user_colors.appendChild(colorNode);
         });
+        deletePalette.addEventListener("click", () => {
+            let previousPlattes = JSON.parse(localStorage.getItem("color-palete"));
+            previousPlattes.splice(i, 1);
+            localStorage.setItem("color-palete", JSON.stringify(previousPlattes));
+            currPalettes.classList.toggle("hidden");
+        });
         userPalette.appendChild(user_colors);
         userPalette.addEventListener("click", () => {
             const chosenColorForUser = currPalettesStorage[i].color_palete;

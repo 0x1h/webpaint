@@ -54,6 +54,8 @@ canvas:not(.preview) {
 }
 
 .color-panel .color-container .color {
+  -webkit-transition: 0.4s ease;
+  transition: 0.4s ease;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -61,7 +63,7 @@ canvas:not(.preview) {
 }
 
 .color-panel .color-container .color.active {
-  border: 2px solid #34eb58;
+  border: 3px solid #34eb58;
 }
 
 .color-panel .manage {
@@ -85,6 +87,8 @@ canvas:not(.preview) {
   background: #1f1f1f;
   -webkit-transform: translate(35px, -100px);
           transform: translate(35px, -100px);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   border-radius: 10px;
 }
 
@@ -109,6 +113,16 @@ canvas:not(.preview) {
   cursor: pointer;
   margin-top: 20px;
   position: relative;
+}
+
+.color-panel .manage .user-data-palettes .scroll-palettes .user-palette .delete-palette {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60px;
+  height: 20px;
+  background: #ff4141;
+  z-index: 20;
 }
 
 .color-panel .manage .user-data-palettes .scroll-palettes .user-palette .Ptext {

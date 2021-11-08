@@ -41,13 +41,14 @@ canvas:not(.preview){
     column-gap: 1px;
     row-gap: 5px;
     .color {
+      transition: 0.4s ease;
       width: 35px;
       height: 35px;
       border-radius: 50%;
       cursor: pointer;
-    }
-    .color.active {
-      border: 2px solid #34eb58;
+      &.active {
+        border: 3px solid #34eb58;
+      }
     }
   }
   .manage {
@@ -62,6 +63,7 @@ canvas:not(.preview){
       height: 150px;
       background: #1f1f1f;
       transform: translate(35px, -100px);
+      transition: 0.4s;
       border-radius: 10px;
       &.hidden {
         display: none;
@@ -80,6 +82,15 @@ canvas:not(.preview){
           cursor: pointer;
           margin-top: 20px;
           position: relative;
+          .delete-palette{
+            position:absolute;
+            right: 0;
+            top: 0;
+            width: 60px;
+            height: 20px;
+            background: #ff4141;
+            z-index: 20;
+          }
           .Ptext {
             width: 100%;
             top: 0;

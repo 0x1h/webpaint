@@ -346,5 +346,7 @@
 
 .save-work-background.hidden {
   display: none;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 /*# sourceMappingURL=save-work.css.map */
