@@ -118,6 +118,10 @@
         background: #64ff71;
         color: #000;
       }
+      &:last-child{
+        background: #000;
+        color: #FFF;
+      }
     }
   }
 }

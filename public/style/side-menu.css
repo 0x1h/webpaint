@@ -121,6 +121,11 @@
   color: #000;
 }
 
+.side-menu .menu-options button:last-child {
+  background: #000;
+  color: #FFF;
+}
+
 .color-pallete-container {
   position: absolute;
   display: -webkit-box;
